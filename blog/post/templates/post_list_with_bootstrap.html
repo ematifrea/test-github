@@ -1,0 +1,46 @@
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+<html>
+    <header class="container">
+        <h1><a href="/">My Blog</a></h1>
+    </header>
+
+    <body>
+        <div class="container">
+          <ul class="nav bg-info">
+            <li class="nav-item">
+              <a class="nav-link link-light" href="/">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-light" href="/members">MEMBERS</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link link-light" href="/admin">ADMIN</a>
+            </li>
+          </ul>
+        </div><br/>
+          {% block content %}
+            <div class="container">
+            {% for post in posts %}
+                <article class="border">
+                    {% if post.published_date %}
+                        <time>published: {{ post.published_date }}</time>
+                    {% endif %}
+                    <h2 class="text-center"><a href="">{{ post.title }}</a></h2>
+                    <p class="text-lg-left p-4">{{ post.text|linebreaksbr }}</p>
+                    <p class="text-end p-4">Submitted by {{ post.author }}</p>
+                </article>
+            {% endfor %}
+            </div>
+          {% endblock %}
+
+    </body>
+
+</html>
